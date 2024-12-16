@@ -2,7 +2,7 @@ name: MAIN - CI/CD Pipeline (CLIENT)
 on:
   push:
     tags:
-      - "v*"
+      - "cv*"
 
 jobs:
   build:
@@ -14,7 +14,6 @@ jobs:
         run: |
           echo "Building project..."
           echo "Building client from $(cat client/client.txt)"
-          echo "Building server from $(cat server/server.txt)"
 
   test:
     needs: build
