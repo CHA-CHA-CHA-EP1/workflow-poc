@@ -1,16 +1,13 @@
-name: CI/CD Pipeline
-
+name: MAIN - CI/CD Pipeline (CLIENT)
 on:
-  pull_request:
-    types:
-      - closed
-    branches:
-      - develop
+  push:
+    tags:
+      - "v*"
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
       - name: Build step
@@ -22,7 +19,7 @@ jobs:
   test:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
       - name: Test step
@@ -34,7 +31,7 @@ jobs:
   deploy:
     needs: test
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
       - name: Deploy step
