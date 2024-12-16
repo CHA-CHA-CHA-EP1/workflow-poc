@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref_name == 'main'
     steps:
       - uses: actions/checkout@v4
       - name: Build step
@@ -18,8 +18,8 @@ jobs:
 
   test:
     needs: build
+    if: github.ref_name == 'main'
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
       - name: Test step
@@ -30,8 +30,8 @@ jobs:
 
   deploy:
     needs: test
+    if: github.ref_name == 'main'
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v4
       - name: Deploy step
