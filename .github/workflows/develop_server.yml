@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true && contains(github.base_ref, 'server/')
+    if: github.event.pull_request.merged == true && contains(github.head_ref, 'server/')
     steps:
       - uses: actions/checkout@v4
       - name: Build step
@@ -23,7 +23,7 @@ jobs:
   test:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true && contains(github.base_ref, 'server/')
+    if: github.event.pull_request.merged == true && contains(github.head_ref, 'server/')
     steps:
       - uses: actions/checkout@v4
       - name: Test step
@@ -35,7 +35,7 @@ jobs:
   deploy:
     needs: test
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true && contains(github.base_ref, 'server/')
+    if: github.event.pull_request.merged == true && contains(github.head_ref, 'server/')
     steps:
       - uses: actions/checkout@v4
       - name: Deploy step
