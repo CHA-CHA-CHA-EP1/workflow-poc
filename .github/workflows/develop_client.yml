@@ -10,19 +10,18 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true && contains(github.base_ref, 'client/')
     steps:
       - uses: actions/checkout@v4
       - name: Build step
         run: |
           echo "Building project..."
           echo "Building client from $(cat client/client.txt)"
-          echo "Building server from $(cat server/server.txt)"
 
   test:
     needs: build
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true && contains(github.base_ref, 'client/')
     steps:
       - uses: actions/checkout@v4
       - name: Test step
@@ -34,7 +33,7 @@ jobs:
   deploy:
     needs: test
     runs-on: ubuntu-latest
-    if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true && contains(github.base_ref, 'client/')
     steps:
       - uses: actions/checkout@v4
       - name: Deploy step
